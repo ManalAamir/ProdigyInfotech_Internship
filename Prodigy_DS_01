@@ -1,0 +1,25 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+url = "https://data.worldbank.org/indicator/SP.POP.TOTL"
+file_path = r"C:\\Program Files\\Python312\\Data.xlsx"
+data = pd.read_excel(file_path, skiprows=3)
+
+print(data.head())
+
+data = data[['Country Name', '2019']]
+
+data.dropna(inplace=True)
+
+data.sort_values(by='2019', ascending=False, inplace=True)
+
+top_10_countries = data.head(10)
+
+plt.figure(figsize=(10, 6))
+plt.bar(top_10_countries['Country Name'], top_10_countries['2019'], color='skyblue')
+plt.xlabel('Country')
+plt.ylabel('Population')
+plt.title('Top 10 Most Populous Countries in 2019')
+plt.xticks(rotation=45, ha='right')
+plt.tight_layout()
+plt.show()
